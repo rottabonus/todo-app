@@ -1,8 +1,16 @@
 import React from "react";
 import { TodoItem } from "./TodoItem";
 import { TodoTable } from "./TodoTable";
+import styled from "styled-components";
 
 export type TodoBoolean = keyof Omit<TodoItem, "task">;
+
+const Container = styled.div`
+  background: cornflowerblue;
+  margin: 4rem;
+  padding: 2rem 1rem 2rem 1rem;
+  border-radius: 16px;
+`;
 const Todo: React.FC = () => {
   const initial = [{ task: "Shower", isImportant: true, isCompleted: false }];
   const [todos, setTodos] = React.useState<Array<TodoItem>>(initial);
@@ -42,7 +50,7 @@ const Todo: React.FC = () => {
   };
 
   return (
-    <div>
+    <Container>
       <TodoTable
         todos={todos}
         setBoolean={setBoolean}
@@ -50,7 +58,7 @@ const Todo: React.FC = () => {
         createItem={createItem}
         sortItems={sortItems}
       />
-    </div>
+    </Container>
   );
 };
 

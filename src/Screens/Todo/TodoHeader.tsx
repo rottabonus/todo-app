@@ -1,11 +1,16 @@
 import React from "react";
-import { TodoTableHeader } from "./TodoHeaderItem";
-import { TodoItem } from "./TodoItem";
+import { Row, TodoItem } from "./TodoItem";
+import styled from "styled-components";
 
 type Props = {
   headers: Array<string>;
   sortItems: (key: keyof TodoItem) => void;
 };
+
+const Header = styled.th`
+  background: papayawhip;
+  padding: 16px;
+`;
 
 export const TodoHeader: React.FC<Props> = ({ headers, sortItems }) => {
   const mappedHeaders: Record<string, keyof TodoItem> = {
@@ -13,18 +18,26 @@ export const TodoHeader: React.FC<Props> = ({ headers, sortItems }) => {
     important: "isImportant",
     done: "isCompleted",
   };
+
+  const onHeaderPress = (sortKey: keyof TodoItem | false) => {
+    if (!sortKey) {
+      return;
+    }
+    sortItems(sortKey);
+  };
+
   return (
     <thead>
-      <tr>
+      <Row>
         {headers.map((h, i) => (
-          <TodoTableHeader
+          <Header
             key={`${i}${h}`}
-            header={h}
-            sortItems={sortItems}
-            sortKey={mappedHeaders[h]}
-          />
+            onClick={() => onHeaderPress(mappedHeaders[h])}
+          >
+            {h}
+          </Header>
         ))}
-      </tr>
+      </Row>
     </thead>
   );
 };

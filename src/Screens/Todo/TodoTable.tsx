@@ -3,6 +3,7 @@ import { TodoBoolean } from ".";
 import { NewItem } from "./NewItem";
 import { TodoHeader } from "./TodoHeader";
 import { TodoItem, TodoTableItem } from "./TodoItem";
+import styled from "styled-components";
 
 type Props = {
   todos: Array<TodoItem>;
@@ -16,6 +17,10 @@ type Props = {
   sortItems: (key: keyof TodoItem) => void;
 };
 
+const Table = styled.table`
+  margin: 0 auto;
+`;
+
 export const TodoTable: React.FC<Props> = ({
   todos,
   setBoolean,
@@ -24,7 +29,7 @@ export const TodoTable: React.FC<Props> = ({
   sortItems,
 }) => {
   return (
-    <table>
+    <Table>
       <TodoHeader
         headers={["task", "important", "done", "action"]}
         sortItems={sortItems}
@@ -41,6 +46,6 @@ export const TodoTable: React.FC<Props> = ({
         ))}
         <NewItem createItem={createItem} />
       </tbody>
-    </table>
+    </Table>
   );
 };
